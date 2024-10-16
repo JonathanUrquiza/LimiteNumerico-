@@ -1,20 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package limitenumerico;
 
-/**
- *
- * @author jurqu
- */
+import java.util.Scanner;
+
 public class LimiteNumerico {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Scanner teclado = new Scanner(System.in);
+        int limite;
+        int contador =0;
+        System.out.println("Ingrese el limite hasta el que quiere contar:");
+        limite = teclado.nextInt();
+        
+        for(int i = 0; i <=limite; i++){
+            System.out.println(i);
+        }
+        while(contador <= limite){
+            System.out.println(contador);
+            contador++;
+        }
+        
+        
     }
     
 }
