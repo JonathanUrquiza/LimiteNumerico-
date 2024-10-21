@@ -1,5 +1,8 @@
 package pruebatraineeuno;
 
+import java.util.Scanner;
+import javax.swing.JComboBox;
+
 /**
  * Primera parte: Suponer un sistema de reserva de asientos para un anfiteatro,
  * el teatro cuenta con 10 filas y 10 asientos cada una, Se necesita desarrollar
@@ -24,41 +27,93 @@ package pruebatraineeuno;
  */
 public class PruebaTraineeUno {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        String mapa[][] = new String[10][10];
+        String asientos[][] = new String[10][10];
+        //Declaración de variables
         int libres = 0;
         int ocupados = 0;
+        String respuesta;
+        int fila = 0, asiento = 0;
+        String verMapa;
+        boolean bandera = false;
+        Scanner teclado = new Scanner(System.in);
+        Scanner teclado2 = new Scanner(System.in);
 
-        for (int fila = 0; fila < 10; fila++) {
-            for (int asiento = 0; asiento < 10; asiento++) {
+        //bienvenida al sistema
+        System.out.println("Bienvenido al sistema de reservas");
+        for (int f = 0; f < 10; f++) {
+            for (int c = 0; c < 10; c++) {
+                asientos[f][c] = "O";
+                }
+            }
+        while (bandera != true) {
+            //Visualización 
+            System.out.println("¿Desea ver los asientos disponibles?");
+            verMapa = teclado.next();
 
-                mapa[fila][asiento] = "L";
+            if (verMapa.equalsIgnoreCase("S")) {
+                dibujarMapa(asientos);
+            }
+
+            //Reserva
+            boolean centinel = false;
+            while (centinel != true) {
+                
+                System.out.println("Ingrese fila y asiento");
+                System.out.print("fila(entre  0 y 9)");
+                fila = teclado.nextInt();
+
+                System.out.print("asiento(entre  0 y 9)");
+                asiento = teclado.nextInt();
+                if (fila <= 9 && fila>=0) {
+                    if (asiento <=9 && asiento >= 0){
+                        centinel = true;
+                    } else{
+                        System.out.println("En número de asiento no es válido.");
+                    }
+                } else {
+                    System.out.println("El número de fija no es válido.");
+                }
+            }
+
+            if (asientos[fila][asiento].equals("O")) {
+                asientos[fila][asiento] = "X";
+                System.out.println("El asiento fue reservado correctamentre");
+            } else {
+                System.out.println("El asiento está ocupado, por favor elija otra posición");
+            }
+            System.out.println("¿Desea finalizar la reserva?\n Ingrese S:Si, para continuar \n Cualquier otra letra:No");
+            respuesta = teclado2.next();
+            if (respuesta.equalsIgnoreCase("S")) {
+                bandera = true;
+            } else {
+                bandera = false;
             }
         }
+        dibujarMapa(asientos);
+       
 
+    }
 
-        for (int fila = 0; fila < 10; fila++) {
-            for (int asientos = 0; asientos < 10; asientos++) {
-                System.out.print(mapa[fila][asientos]);
+    static void dibujarMapa(String asientos[][]) {
+        for (int f = 0; f < 10; f++) {
+            System.out.print(f + " ");
+            for (int c = 0; c < 10; c++) {
+                System.out.print(" [" + asientos[f][c] + "] ");
             }
             System.out.print("\n");
         }
-        
-        for (int i = 0; i < 10; i++) {
-            for (int c = 0; c < 10; c++) {
-                if (mapa[i][c] == "L") {
-                    libres = libres + 1;
-                } else {
-                    if (mapa[i][c] == "X") {
-                        ocupados = ocupados + 1;
-                    }
-                }
-            }
-        }
-        System.out.println("Hay " + libres + " asientos libre y hay " + ocupados + " ocupados.");
     }
 
+
+
+    static void iniciaMapa(String asientos[][]) {
+        for (int f = 0; f < 10; f++) {
+            for (int c = 0; c < 10; c++) {
+                asientos[f][c] = "L";
+                System.out.print(" [" + asientos[f][c] + "] ");
+            }
+            System.out.print("\n");
+        }
+    }
 }
